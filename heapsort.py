@@ -55,6 +55,7 @@ function siftDown(a, start, end) is
 """
 
 def heapsort(a):
+    # in place sort
     heapify(a)
 
     end = len(a) - 1
@@ -62,6 +63,7 @@ def heapsort(a):
         swap(a, end, 0)
         end = end -1
         siftDown(a, 0, end)
+    # by python STD lib convention, in place methods have return value
 
 def heapify(a):
     # create an array based representation of a heap
@@ -81,6 +83,9 @@ def siftDown(a, start, end):
         # sift down if child is larger
         if a[swap_index] < a[child]:
             swap_index = child
+        # in odd numbered arrays, the last parent can only have one child
+        # so we have to check if there is a second child
+        # this could be optimized using sentinals
         if child + 1 <= end and a[swap_index] < a[child+1]:
             swap_index = child + 1
         if swap_index != root:
