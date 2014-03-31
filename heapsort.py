@@ -96,9 +96,6 @@ def siftDown(a, start, end):
         else:
             return
 
-def recurheapify(a):
-    while 
-
 
 
 def swap(a, s, e):
