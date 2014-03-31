@@ -1,6 +1,8 @@
 
 def merge(L, R):
     # basic merge that treats lists as stacks
+    # but doesn't bother use the real pop
+    # operation because that's slow in python
     l_index = 0
     r_index = 0
     merged_list = []
@@ -12,10 +14,10 @@ def merge(L, R):
             else:
                 merged_list.append(R[r_index])
                 r_index += 1
-        elif l_index < len(L):
+        elif l_index < len(L): # right list empty
             merged_list.append(L[l_index])
             l_index += 1
-        else:
+        else: # left list empty
             merged_list.append(R[r_index])
             r_index += 1
     return merged_list
@@ -29,8 +31,6 @@ def top_down_mergesort(List):
         left = top_down_mergesort(List[:mid])
         right = top_down_mergesort(List[mid:])
         return merge(left, right)
-
-
 
 def bottom_up_mergesort(List):
     section_size = 1
