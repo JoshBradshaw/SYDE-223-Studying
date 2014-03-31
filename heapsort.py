@@ -69,6 +69,7 @@ def heapify(a):
     # create an array based representation of a heap
     # from bottom up
     start = (len(a) - 2) // 2
+
     while start >= 0:
         siftDown(a, start, len(a)-1)
         start = start - 1
@@ -77,22 +78,28 @@ def siftDown(a, start, end):
     root = start
 
     while root * 2 + 1 <= end:
-        child = root * 2 + 1
+        left_child = root * 2 + 1
+        right_child = left_child + 1
         swap_index = root
 
-        # sift down if child is larger
-        if a[swap_index] < a[child]:
-            swap_index = child
-        # in odd numbered arrays, the last parent can only have one child
-        # so we have to check if there is a second child
+        # sift down if left_child is larger
+        if a[swap_index] < a[left_child]:
+            swap_index = left_child
+        # in odd numbered arrays, the last parent can only have one left_child
+        # so we have to check if there is a second left_child
         # this could be optimized using sentinals
-        if child + 1 <= end and a[swap_index] < a[child+1]:
-            swap_index = child + 1
+        if right_child <= end and a[swap_index] < a[right_child]:
+            swap_index = right_child
         if swap_index != root:
             swap(a, root, swap_index)
             root = swap_index
         else:
             return
+
+def recurheapify(a):
+    while 
+
+
 
 def swap(a, s, e):
     a[s], a[e] = a[e], a[s]
