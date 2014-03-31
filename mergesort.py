@@ -1,19 +1,5 @@
-from itertools import islice, chain
 
-def section(List, size):
-    ii = 0
-    while ii < len(List):
-        yield List[ii:ii+size]
-        ii += size
-
-def batch(List, size, section_size):
-    sourceiter = iter(section(List, 1))
-    while True:
-        batchiter = islice(sourceiter, size)
-        yield chain([batchiter.next()], batchiter)
-
-
-def merge(L, R=[]):
+def merge(L, R):
     # basic merge that treats lists as stacks
     l_index = 0
     r_index = 0
@@ -45,13 +31,20 @@ def top_down_mergesort(List):
         return merge(left, right)
 
 
-print bottom_up_mergesort([4, 3, 2, 1, 5, 7, 9])
 
+def bottom_up_mergesort(List):
+    section_size = 1
+    while section_size < len(List):
+        l_idx = 0
+        r_idx = l_idx + section_size
+        while r_idx < len(List):
+            L = List[l_idx:r_idx]
+            R = List[r_idx:r_idx+section_size]
+            List[l_idx:r_idx+section_size] = merge(L, R)
+            l_idx = r_idx
+            r_idx = r_idx + section_size
+            
+        section_size *= 2
+    return List
 
-# for eventual bottom up implementation
-
-def batch(iterable, size):
-    sourceiter = iter(iterable)
-    while True:
-        batchiter = islice(sourceiter, size)
-        yield chain([batchiter.next()], batchiter)
+print bottom_up_mergesort([3,1,4, 5, 9, 11, 33, 2223, 2211, 456, 21, 90])
